@@ -1,5 +1,11 @@
 // @ts-ignore
 import styled from "styled-components";
+export const devices = {
+  mobile: `(min-width:320px)`,
+  tablet: `(min-width:900px)`,
+  laptop: `(min-width:1024px)`,
+  dektop: `(min-width:2560px)`,
+};
 interface styledDivProps {
   state: Boolean;
 }
@@ -25,8 +31,7 @@ export const Box = styled.div`
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-  padding: 30px;
-  height: 100vh;
+  padding: 2vw;
   width: 100vw;
   max-height: 300px;
   max-width: 500px;
@@ -48,6 +53,7 @@ export const Box = styled.div`
     overflow: hidden;
     margin: 0 auto;
     opacity: 1;
+    height: 100vh;
     max-height: 100vh;
     max-width: 100vw;
     top: 0;
@@ -60,12 +66,23 @@ export const Box = styled.div`
   &.portfolio-open {
     overflow: visible;
     order: 1;
+    height: 100vh;
     max-width: 70%;
     max-height: 100%;
     height: auto;
   }
   &.open:hover {
     transform: scale(1);
+  }
+  @media ${devices.mobile} {
+    &.portfolio-open {
+      max-width: 100%;
+    }
+  }
+  @media ${devices.laptop} {
+    &.portfolio-open {
+      max-width: 70%;
+    }
   }
 `;
 export const Page = styled.div`
@@ -98,4 +115,21 @@ export const ImgBox = styled.div`
   border: 3px solid white;
   box-shadow: inset 3px 0px 7px 5px rgba(0, 0, 0, 0.5),
     3px 0 7px 3px rgba(0, 0, 0, 0.3);
+`;
+export const Label = styled.p`
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  padding: 1vw 1.4vw;
+  background: white;
+  box-shadow: 0px 9px 10px -6px rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  font-size: 2vw;
+`;
+export const PortfolioContent = styled(Label)`
+  top: auto;
+  padding: 2vw;
+  bottom: 5%;
+  font-size: 2.1vw;
 `;
