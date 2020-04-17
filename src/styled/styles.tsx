@@ -105,7 +105,8 @@ export const Box = styled.div`
   }
   @media ${devices.laptop} {
     margin: 20px;
-    max-width: 500px;
+    max-width: 300px;
+    min-height: 200px;
     &.portfolio-open {
       max-width: 70%;
     }

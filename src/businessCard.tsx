@@ -1,46 +1,67 @@
+import React from "react";
 import styled from "styled-components";
-
-const contact_box = styled.div`
+import front from "./img/prodigy.png";
+import back from "./img/sannTek.png";
+import { Box } from "./styled/styles";
+const Contact_box = styled.div`
   position: relative;
-  width: 100 %;
-  height: 100 %;
+  width: 100%;
+  height: 100%;
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+  box-shadow: 0px 9px 17px -6px rgba(0, 0, 0, 0.7);
 `;
-const contact = styled.div`
+const Contact = styled(Box)`
   background-color: transparent;
   width: 300px;
   height: 200px;
   perspective: 1000px;
   margin: 0 auto;
-  &:hover ${contact_box} {
+  padding: 0;
+  overflow: visible;
+  box-shadow: none;
+  &:hover {
+    transform: scale(1);
+    box-shadow: none;
+  }
+  &:hover ${Contact_box} {
     transform: rotateY(180deg);
   }
 `;
-const contact_box_card = styled.div`
+const Contact_box_card = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   background-size: cover;
-  box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 `;
 
-const contact_box_card_front = styled(contact_box_card)`
-  background-image: url("../images/businessFront.jpg");
+const Contact_box_card_front = styled(Contact_box_card)`
   background-position: top left;
-  background-color: #d3ceca;
+  background-color: white;
   z-index: 2;
 `;
 
-const contact_box_card_back = styled(contact_box_card)`
-  background-image: url("../images/businessback.jpg");
+const Contact_box_card_back = styled(Contact_box_card)`
+  background-image: url(${back});
   background-position: center;
   background-color: #1a1c1d;
   transform: rotateY(180deg);
   z-index: 1;
 `;
+
+export default () => {
+  return (
+    <Contact>
+      <Contact_box>
+        <Contact_box_card_front>
+          <h1>Portfolio</h1>
+        </Contact_box_card_front>
+        <Contact_box_card_back />
+      </Contact_box>
+    </Contact>
+  );
+};

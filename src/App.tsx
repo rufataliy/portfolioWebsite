@@ -4,6 +4,7 @@ import About from "./About";
 import Portfolio from "./Portfolio";
 import { Box, FlexWrapper, GlobalStyles } from "./styled/styles";
 import Page from "./Page";
+import BusinessCard from "./businessCard";
 
 function App() {
   const [orientation, setOrientation] = useState({});
@@ -42,7 +43,6 @@ function App() {
   };
   return (
     <FlexWrapper>
-      <p>{JSON.stringify({ rotate: orientation })}</p>
       <GlobalStyles />
       <Box id="about" onClick={onClick}>
         {state === "about" ? (
@@ -62,6 +62,7 @@ function App() {
           <h1>Portfolio</h1>
         )}
       </Box>
+      <BusinessCard />
     </FlexWrapper>
   );
 }
