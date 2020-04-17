@@ -1,5 +1,5 @@
 // @ts-ignore
-import styled from "styled-components";
+import styled, { keyframes, createGlobalStyle } from "styled-components";
 export const devices = {
   mobile: `(min-width:320px)`,
   tablet: `(min-width:900px)`,
@@ -12,15 +12,38 @@ interface styledDivProps {
 interface stringProp {
   state: String;
 }
+export const GlobalStyles = createGlobalStyle`
 
-export const FlexWrapper = styled.div`
+body{
+  margin:0;
+  padding:0;
+  min-height:100vh;
+  }
+  #root{
+    height:100vh;
+  }
+  @media ${devices.mobile} {
+    html{
+      font-size:10px;
+    }
+  }
+  @media ${devices.laptop} {
+     html{
+      font-size:18px;
+    }
+  }
+`;
+
+export const FlexWrapper = styled.div<{ state?: Boolean }>`
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   height: 100%;
-  overflow: ${({ state }: stringProp) => (state ? "hidden" : "auto")};
+  overflow: ${({ state }) => (state ? "hidden" : "auto")};
 `;
 export const PageBackBlock = styled.div`
+  z-index: -1;
   position: fixed;
   left: 0;
   right: 0;
@@ -33,7 +56,7 @@ export const Box = styled.div`
   box-sizing: border-box;
   padding: 2vw;
   width: 100vw;
-  max-height: 300px;
+  max-height: 350px;
   max-width: 500px;
   box-shadow: 0px 9px 17px -6px rgba(0, 0, 0, 0.7);
   transition: 0.2s linear;
@@ -50,7 +73,6 @@ export const Box = styled.div`
   }
   &.open {
     position: fixed;
-    overflow: hidden;
     margin: 0 auto;
     opacity: 1;
     height: 100vh;
@@ -75,11 +97,15 @@ export const Box = styled.div`
     transform: scale(1);
   }
   @media ${devices.mobile} {
+    margin: 10px 0;
+    max-width: 90%;
     &.portfolio-open {
       max-width: 100%;
     }
   }
   @media ${devices.laptop} {
+    margin: 20px;
+    max-width: 500px;
     &.portfolio-open {
       max-width: 70%;
     }
@@ -116,20 +142,102 @@ export const ImgBox = styled.div`
   box-shadow: inset 3px 0px 7px 5px rgba(0, 0, 0, 0.5),
     3px 0 7px 3px rgba(0, 0, 0, 0.3);
 `;
-export const Label = styled.p`
-  margin: 0;
+export const Label = styled.div`
   position: absolute;
   top: 0;
   left: 5%;
-  padding: 1vw 1.4vw;
+  padding: 1rem 1.4rem;
   background: white;
   box-shadow: 0px 9px 10px -6px rgba(0, 0, 0, 0.7);
-  border-radius: 10px;
-  font-size: 2vw;
+  border-radius: 0.5rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  font-size: 1.8rem;
+  margin: 0;
 `;
 export const PortfolioContent = styled(Label)`
   top: auto;
   padding: 2vw;
   bottom: 5%;
-  font-size: 2.1vw;
+  font-size: 1.3rem;
+  border-radius: 0.5rem;
+  & p {
+    font-size: 1.1rem;
+  }
+  @media ${devices.mobile} {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    left: 0;
+    & p {
+      font-size: 1.4rem;
+    }
+  }
+  @media ${devices.laptop} {
+    position: absolute;
+    & p {
+      font-size: 1rem;
+    }
+  }
+`;
+interface InnerBoxProps {
+  close: voidFunction;
+}
+export const InnerBox = styled.div`
+  height: 100%;
+  width: 100%;
+  position: relative;
+`;
+
+export const LineLeftAnimation = keyframes`
+from {
+  opacity:0;
+  transform: rotate(90deg) translateY(-50%);
+}
+to{
+  opacity:1;
+  transform: rotate(45deg) translateY(-50%);
+}
+`;
+export const LineRightAnimation = keyframes`
+from {
+  opacity:0;
+  transform: rotate(-90deg) translateY(-50%);
+}
+to{
+  opacity:1;
+  transform: rotate(-45deg) translateY(-50%);
+}
+`;
+export const CloseBtn = styled.div`
+  margin-left: auto;
+  height: 60px;
+  width: 60px;
+  position: absolute;
+  right: 3%;
+  top: 3%;
+  z-index: 10000;
+  @media ${devices.mobile} {
+    height: 30px;
+    width: 30px;
+  }
+`;
+const Line = styled.span`
+  opacity: 1;
+  height: 3px;
+  border-radius: 3px;
+  width: 100%;
+  background: grey;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  border: 2px solid white;
+`;
+export const LineLeft = styled(Line)`
+  transform: rotate(90deg) translateY(-50%);
+  animation: ${LineLeftAnimation} 0.2s 0.3s 1 forwards ease-out;
+`;
+export const LineRight = styled(Line)`
+  transform: rotate(-90deg) translateY(-50%);
+  animation: ${LineRightAnimation} 0.2s 0.3s 1 forwards ease-out;
 `;

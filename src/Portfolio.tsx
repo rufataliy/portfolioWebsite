@@ -1,21 +1,14 @@
 import React, { useState } from "react";
-import {
-  Box,
-  FlexWrapper,
-  ImgPortfolio,
-  PortfolioContent,
-  Label,
-} from "./styled/styles";
+import { Box, FlexWrapper } from "./styled/styles";
+import PortfolioContent from "./PortfolioContent";
+
 //@ts-ignore
-import styled from "styled-components";
 import prodigyImg from "./img/prodigy.png";
-import sannTekImg from "./img/sannTek.png";
-import garden from "./img/ss.png";
 
 const Portfolio = () => {
   const [state, setState] = useState(false);
   const [openElement, setOpenElement] = useState<HTMLDivElement | undefined>();
-  const open = ({ target }: Event) => {
+  const open: eventHandler = ({ target }: Event) => {
     setState(!state);
     //@ts-ignore
     const clickedBox = target.closest("div");
@@ -35,30 +28,28 @@ const Portfolio = () => {
     clickedBox.parentElement.scrollTo(0, 0);
     //@ts-ignore
   };
+  const portfolioContent = {
+    img: prodigyImg,
+    label: "Prodigy",
+    techStack: "React,Express,Mongodb, Auth",
+    url: "http://localhost:3000",
+    position: "Full-stack",
+    text:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. At, quos vitae? Inventore consequuntur vitae aliquam laboriosam fuga at voluptates aut ullam dolor suscipit! Accusamus rem quod molestiae velit nemo tenetur?",
+  };
   return (
-    <FlexWrapper>
-      <Box id="prodigy" onClick={open}>
-        <ImgPortfolio src={prodigyImg} />
-        <Label>Prodigy</Label>
-        {openElement && openElement.id === "prodigy" && (
-          <PortfolioContent>
-            ExpressJS, MySql, HTML, CSS | <a href="">Demo</a>
-          </PortfolioContent>
-        )}
+    <FlexWrapper state={state}>
+      <Box id={portfolioContent.label} onClick={open}>
+        <PortfolioContent portfolio={portfolioContent} showContent={state} />
       </Box>
       <Box id="sanntek" onClick={open}>
-        <ImgPortfolio src={sannTekImg} />
-        <Label>SannTekk</Label>
-        {openElement && openElement.id === "sanntek" && (
-          <PortfolioContent>ExpressJS, MySql, HTML, CSS</PortfolioContent>
-        )}
+        <PortfolioContent portfolio={portfolioContent} showContent={state} />
       </Box>
       <Box id="prodigy2" onClick={open}>
-        <ImgPortfolio src={garden} />
-        <Label>Css Zen Garden</Label>
-        {openElement && openElement.id === "prodigy2" && (
-          <PortfolioContent>ExpressJS, MySql, HTML, CSS</PortfolioContent>
-        )}
+        <PortfolioContent portfolio={portfolioContent} showContent={state} />
+      </Box>
+      <Box id="prodigy2" onClick={open}>
+        <PortfolioContent portfolio={portfolioContent} showContent={state} />
       </Box>
     </FlexWrapper>
   );

@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
 // @ts-ignore
-import { createGlobalStyle } from "styled-components";
-import InnerBox from "./InnerBox";
 import About from "./About";
 import Portfolio from "./Portfolio";
-import { Box, FlexWrapper } from "./styled/styles";
-const GlobalStyles = createGlobalStyle`
-body{
-  margin:0;
-  padding:0;
-  }
-`;
+import { Box, FlexWrapper, GlobalStyles } from "./styled/styles";
+import Page from "./Page";
 
 function App() {
+  const [orientation, setOrientation] = useState({});
   const [state, setState] = useState("");
   const [openPage, setOpenPage] = useState<HTMLDivElement>();
   useEffect(() => {
+    window.addEventListener(
+      "devicemotion",
+      ({ rotationRate: { alpha, gamma, beta } }) => {
+        console.log({ alpha, gamma, beta });
+
+        setOrientation({ rotate: alpha });
+      }
+    );
     openPage?.scrollIntoView();
   }, [openPage]);
-  const open = (event: Event) => {
+  const open: eventHandler = (event: Event) => {
     event.stopPropagation();
     event.preventDefault();
     //@ts-ignore
@@ -29,38 +31,36 @@ function App() {
     event.target.classList.toggle("open");
     //@ts-ignore
   };
-  const close = () => {
+  const close: VoidFunction = () => {
     setState("");
     openPage?.classList.toggle("open");
     //@ts-ignore
     setOpenPage(undefined);
   };
+  const onClick: eventHandler = (event) => {
+    open(event);
+  };
   return (
-    <FlexWrapper state={state}>
+    <FlexWrapper>
+      <p>{JSON.stringify({ rotate: orientation })}</p>
       <GlobalStyles />
-      <Box id="about" onClick={(event: Event) => open(event)}>
+      <Box id="about" onClick={onClick}>
         {state === "about" ? (
-          <InnerBox close={close}>
+          <Page close={close}>
             <About />
-          </InnerBox>
+          </Page>
         ) : (
           <h1>About</h1>
         )}
       </Box>
-      <Box id="portfolio" onClick={(event: Event) => open(event)}>
+      <Box id="portfolio" onClick={onClick}>
         {state === "portfolio" ? (
-          <InnerBox close={close}>
+          <Page close={close}>
             <Portfolio />
-          </InnerBox>
+          </Page>
         ) : (
           <h1>Portfolio</h1>
         )}
-      </Box>
-      <Box id="contact" onClick={(event: Event) => open(event)}>
-        {state === "contact" ? <InnerBox close={close} /> : <h1>Contact</h1>}
-      </Box>
-      <Box id="test" onClick={(event: Event) => open(event)}>
-        {state === "test" ? <InnerBox close={close} /> : <h1>Test</h1>}
       </Box>
     </FlexWrapper>
   );
