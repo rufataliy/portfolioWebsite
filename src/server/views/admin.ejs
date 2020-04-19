@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('_layouts/head'); %>
+        <link rel="stylesheet" href="../css/card.min.css" />
+</head>
+
+<body>
+    <a href="/admin/newPortfolio">New portfolio</a>
+    <%if(portfolios){ portfolios.forEach(portfolio=>{%>
+        <div class="ui card">
+            <div class="image">
+                <img src="<%= portfolio.img%>" />
+            </div>
+            <div class="content">
+                <a href="<%= 'portfolios/edit/'+portfolio.id%>" class="header">
+                    <%= portfolio.label%>
+                </a>
+                <div class="description">
+                    <%- portfolio.text%>
+                </div>
+                <a href="portfolios/delete/<%=portfolio.id%>">delete</a>
+            </div>
+        </div>
+        <%})}%>
+            <%if(pages){ pages.forEach(page=>{%>
+                <div class="ui card">
+                    <div class="image">
+                        <img src="<%= page.img%>" />
+                    </div>
+                    <div class="content">
+                        <a href="<%= 'baseUrl/pages/'+page.id%>" class="header">
+                            <%= page.label%>
+                        </a>
+                        <div class="description">
+                            <%= page.text%>
+                        </div>
+                    </div>
+                </div>
+                <%})}%>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('_layouts/head'); %>
+        <link rel="stylesheet" href="./css/form.min.css" />
+        <link rel="stylesheet" href="./css/container.min.css" />
+</head>
+
+<body>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="row">
+                <div class="column">
+                    <form action="/admin/portfolios/edit/<%= portfolio.id%>" method="POST" class="ui form">
+                        <div class="field">
+                            <label>Label</label>
+                            <input type="text" name="label" placeholder="label" value="<%= portfolio.label%>" />
+                        </div>
+                        <div class="field">
+                            <label>Image</label>
+                            <input type="file" name="image" placeholder="image" />
+                        </div>
+                        <textarea name="text" id="editor" cols="30" rows="10">
+                            <%= portfolio.text%>
+                        </textarea
+              >
+              <button class="ui button" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
+    <script>
+      ClassicEditor.create(document.querySelector("#editor"))
+        .then((editor) => {
+          console.log(editor);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    </script>
+  </body>
+</html>

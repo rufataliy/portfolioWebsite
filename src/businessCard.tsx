@@ -3,7 +3,7 @@ import styled from "styled-components";
 import front from "./img/prodigy.png";
 import back from "./img/sannTek.png";
 import { Box } from "./styled/styles";
-const Contact_box = styled.div`
+const ContactBox = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
@@ -15,8 +15,7 @@ const Contact_box = styled.div`
 `;
 const Contact = styled(Box)`
   background-color: transparent;
-  width: 300px;
-  height: 200px;
+
   perspective: 1000px;
   margin: 0 auto;
   padding: 0;
@@ -26,11 +25,11 @@ const Contact = styled(Box)`
     transform: scale(1);
     box-shadow: none;
   }
-  &:hover ${Contact_box} {
+  &:hover ${ContactBox} {
     transform: rotateY(180deg);
   }
 `;
-const Contact_box_card = styled.div`
+const ContactBoxCard = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -39,29 +38,49 @@ const Contact_box_card = styled.div`
   border-radius: 10px;
 `;
 
-const Contact_box_card_front = styled(Contact_box_card)`
+const ContactBoxCardFront = styled(ContactBoxCard)`
   background-position: top left;
   background-color: white;
   z-index: 2;
 `;
 
-const Contact_box_card_back = styled(Contact_box_card)`
-  background-image: url(${back});
+const ContactBoxCardBack = styled(ContactBoxCard)`
   background-position: center;
-  background-color: #1a1c1d;
   transform: rotateY(180deg);
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 `;
-
+const LinkShadowHover = styled.span`
+  transition: 0.4s;
+  &:hover {
+    box-shadow: 0px 11px 20px -12px grey;
+    transform: translateY(-3px);
+    font-size: calc(100%+1px);
+  }
+`;
 export default () => {
   return (
     <Contact>
-      <Contact_box>
-        <Contact_box_card_front>
-          <h1>Portfolio</h1>
-        </Contact_box_card_front>
-        <Contact_box_card_back />
-      </Contact_box>
+      <ContactBox>
+        <ContactBoxCardFront>
+          <h1>Contact</h1>
+        </ContactBoxCardFront>
+        <ContactBoxCardBack>
+          <h2>+1 613 879 5442</h2>
+          <a href="#">
+            <h2>
+              <LinkShadowHover>rufataliyevbakou@gmail.com</LinkShadowHover>
+            </h2>
+          </a>
+          <a href="https://github.com/rufataliy">
+            <h2>
+              <LinkShadowHover>Github</LinkShadowHover>
+            </h2>
+          </a>
+        </ContactBoxCardBack>
+      </ContactBox>
     </Contact>
   );
 };

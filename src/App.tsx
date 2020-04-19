@@ -59,7 +59,7 @@ function App() {
             <Portfolio />
           </Page>
         ) : (
-          <h1>Portfolio</h1>
+          <h1>Portfol</h1>
         )}
       </Box>
       <BusinessCard />

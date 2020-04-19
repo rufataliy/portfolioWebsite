@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, FlexWrapper } from "./styled/styles";
 import PortfolioContent from "./PortfolioContent";
 
@@ -8,6 +8,13 @@ import prodigyImg from "./img/prodigy.png";
 const Portfolio = () => {
   const [state, setState] = useState(false);
   const [openElement, setOpenElement] = useState<HTMLDivElement | undefined>();
+  const [portfolios, setPortfolios] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/api")
+      .then((res) => res.json())
+      .then(setPortfolios)
+      .catch(console.log);
+  }, []);
   const open: eventHandler = ({ target }: Event) => {
     setState(!state);
     //@ts-ignore
@@ -38,19 +45,17 @@ const Portfolio = () => {
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. At, quos vitae? Inventore consequuntur vitae aliquam laboriosam fuga at voluptates aut ullam dolor suscipit! Accusamus rem quod molestiae velit nemo tenetur?",
   };
   return (
-    <FlexWrapper state={state}>
-      <Box id={portfolioContent.label} onClick={open}>
-        <PortfolioContent portfolio={portfolioContent} showContent={state} />
-      </Box>
-      <Box id="sanntek" onClick={open}>
-        <PortfolioContent portfolio={portfolioContent} showContent={state} />
-      </Box>
-      <Box id="prodigy2" onClick={open}>
-        <PortfolioContent portfolio={portfolioContent} showContent={state} />
-      </Box>
-      <Box id="prodigy2" onClick={open}>
-        <PortfolioContent portfolio={portfolioContent} showContent={state} />
-      </Box>
+    <FlexWrapper>
+      {portfolios[0] &&
+        portfolios.forEach((portfolio) => (
+          <Box id={portfolio.label} onClick={open}>
+            <PortfolioContent
+              selectedItem={openElement?.id}
+              portfolio={portfolio}
+              showContent={state}
+            />
+          </Box>
+        ))}
     </FlexWrapper>
   );
 };

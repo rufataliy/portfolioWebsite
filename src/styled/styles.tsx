@@ -40,7 +40,9 @@ export const FlexWrapper = styled.div<{ state?: Boolean }>`
   flex-wrap: wrap;
   justify-content: center;
   height: 100%;
-  overflow: ${({ state }) => (state ? "hidden" : "auto")};
+  overflow: auto;
+  box-sizing: border-box;
+  padding-bottom: 60px;
 `;
 export const PageBackBlock = styled.div`
   z-index: -1;
@@ -56,8 +58,8 @@ export const Box = styled.div`
   box-sizing: border-box;
   padding: 2vw;
   width: 100vw;
-  max-height: 350px;
-  max-width: 500px;
+  height: 250px;
+  width: 500px;
   box-shadow: 0px 9px 17px -6px rgba(0, 0, 0, 0.7);
   transition: 0.2s linear;
   border-radius: 10px;
@@ -76,6 +78,7 @@ export const Box = styled.div`
     margin: 0 auto;
     opacity: 1;
     height: 100vh;
+    width: 100vw;
     max-height: 100vh;
     max-width: 100vw;
     top: 0;
@@ -100,13 +103,13 @@ export const Box = styled.div`
     margin: 10px 0;
     max-width: 90%;
     &.portfolio-open {
-      max-width: 100%;
+      max-width: 95%;
+      width: 100%;
     }
   }
   @media ${devices.laptop} {
     margin: 20px;
-    max-width: 300px;
-    min-height: 200px;
+    max-width: 100%;
     &.portfolio-open {
       max-width: 70%;
     }
@@ -193,21 +196,21 @@ export const InnerBox = styled.div`
 export const LineLeftAnimation = keyframes`
 from {
   opacity:0;
-  transform: rotate(90deg) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%) rotate(90deg) translateY(-50%);
 }
 to{
   opacity:1;
-  transform: rotate(45deg) translateY(-50%);
+  transform:  translateX(-50%) translateY(-50%) rotate(45deg) translateY(-50%);
 }
 `;
 export const LineRightAnimation = keyframes`
 from {
   opacity:0;
-  transform: rotate(-90deg) translateY(-50%);
+  transform:translateX(-50%) translateY(-50%) rotate(-90deg) translateY(-50%);
 }
 to{
   opacity:1;
-  transform: rotate(-45deg) translateY(-50%);
+  transform:translateX(-40%) translateY(-50%) rotate(-45deg) translateY(-50%);
 }
 `;
 export const CloseBtn = styled.div`
@@ -232,13 +235,15 @@ const Line = styled.span`
   display: inline-block;
   position: absolute;
   top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
   border: 2px solid white;
 `;
 export const LineLeft = styled(Line)`
-  transform: rotate(90deg) translateY(-50%);
+  transform: rotate(90deg);
   animation: ${LineLeftAnimation} 0.2s 0.3s 1 forwards ease-out;
 `;
 export const LineRight = styled(Line)`
-  transform: rotate(-90deg) translateY(-50%);
+  transform: rotate(-90deg);
   animation: ${LineRightAnimation} 0.2s 0.3s 1 forwards ease-out;
 `;
