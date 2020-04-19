@@ -1,12 +1,22 @@
 const router = new require("express").Router();
+const path = require("path");
 const Portfolio = require("../models/Portfolio");
+
 router.get("/", (req, res) => {
-    Portfolio.find().then(res.send).catch(console.log);
+    Portfolio.findAll().then(res.send).catch(console.log);
 });
+
 router.post("/", (req, res) => {
-    console.log(req.body);
+    if (req.files) {
+        req.body.image = req.files.image.nae;
+        req.files.image
+            .mv(path.join(__dirname, "../public/img/" + req.files.image.name))
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+    }
+    res.send(req.body);
     Portfolio.create(req.body)
-        .then(() => res.redirect("/"))
+        .then(() => res.redirect("/admin"))
         .catch(console.log);
 });
 router.get("/edit/:portfolioId", (req, res) => {
@@ -15,9 +25,16 @@ router.get("/edit/:portfolioId", (req, res) => {
         .catch(console.log);
 });
 router.post("/edit/:portfolioId", (req, res) => {
+    if (req.files) {
+        req.body.image = req.files.image.name;
+        req.files.image
+            .mv(path.join(__dirname, "../public/img/" + req.files.image.name))
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+    }
     Portfolio.findByIdAndUpdate(req.params.portfolioId, req.body)
         .then((item) => {
-            res.redirect("/");
+            res.redirect("/admin");
             console.log(item);
         })
         .catch(console.log);

@@ -10,17 +10,18 @@ const Portfolio = () => {
   const [openElement, setOpenElement] = useState<HTMLDivElement | undefined>();
   const [portfolios, setPortfolios] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/api")
+    fetch("http://localhost:3000/api/portfolios")
       .then((res) => res.json())
-      .then(setPortfolios)
+      .then((res) => {
+        setPortfolios(res);
+      })
       .catch(console.log);
   }, []);
   const open: eventHandler = ({ target }: Event) => {
-    setState(!state);
     //@ts-ignore
     const clickedBox = target.closest("div");
     if (openElement === clickedBox) {
-      setState(!state);
+      setState(false);
       console.log(true);
       //@ts-ignore
       openElement?.classList.toggle("portfolio-open");
@@ -29,25 +30,17 @@ const Portfolio = () => {
       openElement?.classList.remove("portfolio-open");
       clickedBox.classList.add("portfolio-open");
       setOpenElement(clickedBox);
-      setState(!state);
+      setState(true);
     }
     //@ts-ignore
     clickedBox.parentElement.scrollTo(0, 0);
     //@ts-ignore
   };
-  const portfolioContent = {
-    img: prodigyImg,
-    label: "Prodigy",
-    techStack: "React,Express,Mongodb, Auth",
-    url: "http://localhost:3000",
-    position: "Full-stack",
-    text:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. At, quos vitae? Inventore consequuntur vitae aliquam laboriosam fuga at voluptates aut ullam dolor suscipit! Accusamus rem quod molestiae velit nemo tenetur?",
-  };
+
   return (
     <FlexWrapper>
       {portfolios[0] &&
-        portfolios.forEach((portfolio) => (
+        portfolios?.map((portfolio) => (
           <Box id={portfolio.label} onClick={open}>
             <PortfolioContent
               selectedItem={openElement?.id}

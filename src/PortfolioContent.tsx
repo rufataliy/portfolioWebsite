@@ -4,11 +4,8 @@ interface PortfolioContentProps {
   showContent: Boolean;
   selectedItem: string;
   portfolio: {
-    img: string;
+    image: string;
     label: string;
-    techStack: string;
-    url: string;
-    position: string;
     text: string;
   };
 }
@@ -20,16 +17,14 @@ export default ({
 }: PortfolioContentProps) => {
   return (
     <React.Fragment>
-      <ImgPortfolio src={portfolio.img} />
+      <ImgPortfolio src={"img/" + portfolio.image} />
       <Label>
         <span>{portfolio.label}</span>
       </Label>
       {showContent && selectedItem === portfolio.label && (
-        <PortfolioContent>
-          {portfolio.techStack} | <a href={portfolio.url}>Demo</a>
-          <p>{portfolio.position}</p>
-          <p>{portfolio.text}</p>
-        </PortfolioContent>
+        <PortfolioContent
+          dangerouslySetInnerHTML={{ __html: portfolio.text }}
+        />
       )}
     </React.Fragment>
   );
