@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 interface PageThumbnailProps {
-  page: {
-    name: string;
-    image: string;
-  };
+  page: page;
 }
 
 export default ({ page }: PageThumbnailProps) => {
   return (
-    <div>
+    <React.Fragment>
       <h1>{page.name}</h1>
       <img src={`/img/${page.image}`} alt="" />
-    </div>
+    </React.Fragment>
   );
 };

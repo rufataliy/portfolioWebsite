@@ -37,9 +37,17 @@ const ContactBoxCard = styled.div`
 `;
 
 const ContactBoxCardFront = styled(ContactBoxCard)`
+  h1 {
+    text-align: left;
+  }
+  overflow: hidden;
+  justify-content: space-between;
+  display: flex;
   background-position: top left;
   background-color: white;
   z-index: 2;
+  padding: 2vw;
+  box-sizing: border-box;
 `;
 
 const ContactBoxCardBack = styled(ContactBoxCard)`
@@ -50,33 +58,44 @@ const ContactBoxCardBack = styled(ContactBoxCard)`
   flex-direction: column;
   justify-content: space-around;
 `;
-const LinkShadowHover = styled.span`
-  transition: 0.4s;
-  &:hover {
-    box-shadow: 0px 11px 20px -12px grey;
+const LinkShadowHover = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  h3 {
+    margin: 0;
+  }
+  span {
+    text-align: center;
+  }
+  span a {
+    display: inline-block;
+    transition: 0.4s;
+  }
+  & a,
+  a:visited {
+    color: inherit;
+  }
+  span:hover a {
+    box-shadow: 0px 11px 20px -8px grey;
     transform: translateY(-3px);
     font-size: calc(100%+1px);
   }
 `;
-export default () => {
+interface BusinessCardProps {
+  page: page;
+}
+export default ({ page }: BusinessCardProps) => {
   return (
     <Contact>
       <ContactBox>
         <ContactBoxCardFront>
-          <h1>Contact</h1>
+          <h1>{page.name}</h1>
+          <img src={`/img/${page.image}`} alt="" />
         </ContactBoxCardFront>
         <ContactBoxCardBack>
-          <h2>+1 613 879 5442</h2>
-          <a href="#">
-            <h2>
-              <LinkShadowHover>rufataliyevbakou@gmail.com</LinkShadowHover>
-            </h2>
-          </a>
-          <a href="https://github.com/rufataliy">
-            <h2>
-              <LinkShadowHover>Github</LinkShadowHover>
-            </h2>
-          </a>
+          <LinkShadowHover dangerouslySetInnerHTML={{ __html: page.text }} />
         </ContactBoxCardBack>
       </ContactBox>
     </Contact>

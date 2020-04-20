@@ -35,19 +35,26 @@
             </div>
             <%})}%>
     </div>
-    <%if(pages){ pages.forEach(page=>{%>
-        <div class="ui card">
-            <div class="image">
-                <img src="/img/<%= page.image%>" />
+    <div class="ui grid">
+        <%if(pages){ pages.forEach(page=>{%>
+            <div class="four wide column">
+                <div class="ui card">
+                    <div class="image">
+                        <img src="/img/<%= page.image%>" />
+                    </div>
+                    <div class="content">
+                        <a href="/admin/pages/edit/<%= page.id%>" class="header">
+                            <%= page.name%>
+                        </a>
+                        <div class="description">
+                            <%- page.text%>
+                        </div>
+                        <a href="/admin/pages/delete/<%=page.id%>">delete</a>
+                    </div>
+                </div>
             </div>
-            <div class="content">
-                <a href="/admin/pages/edit/<%= page.id%>" class="header">
-                    <%= page.name%>
-                </a>
-            </div>
-            <a href="/admin/pages/delete/<%=page.id%>">delete</a>
-        </div>
-        <%})}%>
+            <%})}%>
+    </div>
 </body>
 
 </html>

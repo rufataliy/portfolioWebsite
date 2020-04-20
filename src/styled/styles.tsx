@@ -66,7 +66,12 @@ export const Box = styled.div`
   cursor: pointer;
   margin: 20px;
   order: 2;
-
+  display: flex;
+  justify-content: space-between;
+  alig-items: flex-start;
+  img {
+    height: 120%;
+  }
   &:hover {
     transform: scale(1.05);
     box-shadow: 0px 9px 25px -15px rgba(0, 0, 0, 0.9);

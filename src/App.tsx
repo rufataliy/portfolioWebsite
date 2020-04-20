@@ -48,19 +48,27 @@ function App() {
   const components = {
     About: <About />,
     Portfolio: <Portfolio />,
+    //@ts-ignore
+    Contact: <BusinessCard />,
   };
   return (
     <FlexWrapper>
       <GlobalStyles />
       {pages &&
         pages.map((page: page) => (
-          <Box className="page" id={page.name} onClick={open}>
-            {state === page.name ? (
-              <Page close={close}>{components[page.name]}</Page>
+          <React.Fragment>
+            {page.name !== "Contact" ? (
+              <Box className="page" id={page.name} onClick={open}>
+                {state === page.name ? (
+                  <Page close={close}>{components[page.name]}</Page>
+                ) : (
+                  <PageThumbnail page={page} />
+                )}
+              </Box>
             ) : (
-              <PageThumbnail page={page} />
+              <BusinessCard page={page} />
             )}
-          </Box>
+          </React.Fragment>
         ))}
     </FlexWrapper>
   );
