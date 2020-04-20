@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import front from "./img/prodigy.png";
-import back from "./img/sannTek.png";
 import { Box } from "./styled/styles";
 const ContactBox = styled.div`
   position: relative;

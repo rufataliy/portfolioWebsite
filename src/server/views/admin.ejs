@@ -9,8 +9,11 @@
 </head>
 
 <body>
-    <a href="/admin/newPortfolio" class="ui secondary button">
+    <a href="/admin/portfolios/newPortfolio" class="ui secondary button">
       New Portfolio
+    </a>
+    <a href="/admin/pages/newPage" class="ui secondary button">
+      New Page
     </a>
     <div class="ui grid">
         <%if(portfolios){ portfolios.forEach(portfolio=>{%>
@@ -26,7 +29,7 @@
                         <div class="description">
                             <%- portfolio.text%>
                         </div>
-                        <a href="portfolios/delete/<%=portfolio.id%>">delete</a>
+                        <a href="/admin/portfolios/delete/<%=portfolio.id%>">delete</a>
                     </div>
                 </div>
             </div>
@@ -35,16 +38,14 @@
     <%if(pages){ pages.forEach(page=>{%>
         <div class="ui card">
             <div class="image">
-                <img src="<%= page.img%>" />
+                <img src="/img/<%= page.image%>" />
             </div>
             <div class="content">
-                <a href="<%= 'baseUrl/pages/'+page.id%>" class="header">
-                    <%= page.label%>
+                <a href="/admin/pages/edit/<%= page.id%>" class="header">
+                    <%= page.name%>
                 </a>
-                <div class="description">
-                    <%= page.text%>
-                </div>
             </div>
+            <a href="/admin/pages/delete/<%=page.id%>">delete</a>
         </div>
         <%})}%>
 </body>

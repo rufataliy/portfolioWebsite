@@ -13,8 +13,6 @@ router.get("/", async(req, res) => {
 
     res.render("admin", { portfolios, pages });
 });
-router.get("/newPortfolio", (req, res) => {
-    res.render("newPortfolio");
-});
+
 
 module.exports = router;

@@ -5,64 +5,63 @@ import Portfolio from "./Portfolio";
 import { Box, FlexWrapper, GlobalStyles } from "./styled/styles";
 import Page from "./Page";
 import BusinessCard from "./businessCard";
-
+import PageThumbnail from "./PageThumbnail";
 function App() {
-  const [orientation, setOrientation] = useState({});
   const [state, setState] = useState("");
   const [openPage, setOpenPage] = useState<HTMLDivElement>();
+  const [pages, setPages] = useState<page[]>();
   useEffect(() => {
+    fetch("http://localhost:3000/api/pages")
+      .then((res) => res.json())
+      .then((pages) => setPages(pages))
+      .catch((err) => console.log(err));
     window.addEventListener(
       "devicemotion",
       ({ rotationRate: { alpha, gamma, beta } }) => {
         console.log({ alpha, gamma, beta });
-
-        setOrientation({ rotate: alpha });
       }
     );
     openPage?.scrollIntoView();
   }, [openPage]);
   const open: eventHandler = (event: Event) => {
+    console.log("open");
+
     event.stopPropagation();
     event.preventDefault();
     //@ts-ignore
-    setState(event.target.id);
+    setState(event.target.closest(".page").id);
     //@ts-ignore
-    setOpenPage(event.target);
+    setOpenPage(event.target.closest(".page"));
     //@ts-ignore
-    event.target.classList.toggle("open");
+    event.target.closest(".page").classList.add("open");
     //@ts-ignore
   };
-  const close: VoidFunction = () => {
+  const close: eventHandler = (e) => {
+    e.stopPropagation();
     setState("");
-    openPage?.classList.toggle("open");
+    console.log(openPage);
+
+    openPage?.classList.remove("open");
     //@ts-ignore
     setOpenPage(undefined);
   };
-  const onClick: eventHandler = (event) => {
-    open(event);
+  const components = {
+    About: <About />,
+    Portfolio: <Portfolio />,
   };
   return (
     <FlexWrapper>
       <GlobalStyles />
-      <Box id="about" onClick={onClick}>
-        {state === "about" ? (
-          <Page close={close}>
-            <About />
-          </Page>
-        ) : (
-          <h1>About</h1>
-        )}
-      </Box>
-      <Box id="portfolio" onClick={onClick}>
-        {state === "portfolio" ? (
-          <Page close={close}>
-            <Portfolio />
-          </Page>
-        ) : (
-          <h1>Portfol</h1>
-        )}
-      </Box>
-      <BusinessCard />
+      {pages &&
+        pages.map((page: page) => (
+          <Box className="page" id={page.name} onClick={open}>
+            {state === page.name ? (
+              <Page close={close}>{components[page.name]}</Page>
+            ) : (
+              <PageThumbnail page={page} />
+            )}
+          </Box>
+        ))}
     </FlexWrapper>
   );
 }

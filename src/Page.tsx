@@ -9,7 +9,7 @@ import {
 } from "./styled/styles";
 
 interface PageProps {
-  close: voidFunction;
+  close: eventHandler;
   children?: ReactNode;
 }
 const onClick: eventHandler = (event) => {

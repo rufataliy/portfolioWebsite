@@ -32,7 +32,7 @@ const Portfolio = () => {
       setOpenElement(clickedBox);
       setState(true);
     }
-    //@ts-ignore
+    //@ts-ig+nore
     clickedBox.parentElement.scrollTo(0, 0);
     //@ts-ignore
   };
