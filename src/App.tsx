@@ -45,11 +45,13 @@ function App() {
     //@ts-ignore
     setOpenPage(undefined);
   };
-  const components = {
-    About: <About />,
-    Portfolio: <Portfolio />,
-    //@ts-ignore
-    Contact: <BusinessCard />,
+  const components = (page) => {
+    const compns = {
+      About: <About page={page} />,
+      Portfolio: <Portfolio />,
+      Contact: <BusinessCard page={page} />,
+    };
+    return compns[page.name];
   };
   return (
     <FlexWrapper>
@@ -60,7 +62,7 @@ function App() {
             {page.name !== "Contact" ? (
               <Box className="page" id={page.name} onClick={open}>
                 {state === page.name ? (
-                  <Page close={close}>{components[page.name]}</Page>
+                  <Page close={close}>{components(page)}</Page>
                 ) : (
                   <PageThumbnail page={page} />
                 )}

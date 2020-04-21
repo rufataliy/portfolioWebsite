@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, FlexWrapper } from "./styled/styles";
+import { PortfolioBox, FlexWrapper } from "./styled/styles";
 import PortfolioContent from "./PortfolioContent";
 
 //@ts-ignore
@@ -41,13 +41,13 @@ const Portfolio = () => {
     <FlexWrapper>
       {portfolios[0] &&
         portfolios?.map((portfolio) => (
-          <Box id={portfolio.label} onClick={open}>
+          <PortfolioBox id={portfolio.label} onClick={open}>
             <PortfolioContent
               selectedItem={openElement?.id}
               portfolio={portfolio}
               showContent={state}
             />
-          </Box>
+          </PortfolioBox>
         ))}
     </FlexWrapper>
   );

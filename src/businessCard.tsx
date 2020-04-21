@@ -63,8 +63,12 @@ const LinkShadowHover = styled.div`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
+  a {
+    font-size: 1.6rem;
+  }
   h3 {
     margin: 0;
+    font-size: 1.6rem;
   }
   span {
     text-align: center;
@@ -84,7 +88,7 @@ const LinkShadowHover = styled.div`
   }
 `;
 interface BusinessCardProps {
-  page: page;
+  page?: page;
 }
 export default ({ page }: BusinessCardProps) => {
   return (

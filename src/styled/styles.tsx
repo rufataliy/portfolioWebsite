@@ -15,6 +15,7 @@ interface stringProp {
 export const GlobalStyles = createGlobalStyle`
 
 body{
+  font-family: 'Baloo Bhaina 2', cursive;
   margin:0;
   padding:0;
   min-height:100vh;
@@ -120,6 +121,10 @@ export const Box = styled.div`
     }
   }
 `;
+export const PortfolioBox = styled(Box)`
+  height: auto;
+  display: block;
+`;
 export const Page = styled.div`
   padding: 10px;
   overflow: hidden;
@@ -128,6 +133,9 @@ export const Page = styled.div`
   align-items: center;
   max-width: 800px;
   margin: 0 auto;
+  p {
+    font-size: 1.6rem;
+  }
 `;
 export const Img = styled.img`
   height: 100%;
@@ -140,16 +148,31 @@ export const Content = styled.div`
   max-width: 300px;
 `;
 export const ImgBox = styled.div`
-  margin-right: 30px;
-  shape-outside: circle(50%);
-  float: left;
   height: 300px;
   width: 300px;
-  border-radius: 50%;
+  font-size: 1.4rem;
   overflow: hidden;
-  border: 3px solid white;
-  box-shadow: inset 3px 0px 7px 5px rgba(0, 0, 0, 0.5),
-    3px 0 7px 3px rgba(0, 0, 0, 0.3);
+  p {
+    font-size: 1.4rem;
+  }
+  img {
+    height: auto;
+    width: 100%;
+  }
+  @media ${devices.laptop} {
+    img {
+      height: 120%;
+      width: 100%;
+    }
+    overflow: hidden;
+    border: 3px solid white;
+    box-shadow: inset 3px 0px 7px 5px rgba(0, 0, 0, 0.5),
+      3px 0 7px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    float: left;
+    margin-right: 30px;
+    shape-outside: circle(50%);
+  }
 `;
 export const Label = styled.div`
   position: absolute;
@@ -171,7 +194,11 @@ export const PortfolioContent = styled(Label)`
   font-size: 1.3rem;
   border-radius: 0.5rem;
   & p {
+    margin: 0;
     font-size: 1.1rem;
+  }
+  & h4 {
+    margin: 0;
   }
   @media ${devices.mobile} {
     position: relative;
@@ -189,9 +216,7 @@ export const PortfolioContent = styled(Label)`
     }
   }
 `;
-interface InnerBoxProps {
-  close: voidFunction;
-}
+
 export const InnerBox = styled.div`
   height: 100%;
   width: 100%;

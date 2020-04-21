@@ -17,14 +17,14 @@ app.use(fileupload());
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 app.use("/static", express.static(path.join(__dirname, "../../build/static")));
-app.use("/", express.static(path.join(__dirname, "public")));
-app.use("/admin", express.static(path.join(__dirname, "public")));
-console.log();
+app.use("/", express.static(path.join(__dirname, "/public")));
+app.use("/admin", express.static(path.join(__dirname, "/public")));
+console.log(process.env.SESSION_SECRET, process.env.DB_CONNECTION);
 app.use(
     session({
         resave: false,
         saveUninitialized: true,
-        secret: "12132",
+        secret: process.env.SESSION_SECRET,
     })
 );
 app.get("/", (req, res) => {
