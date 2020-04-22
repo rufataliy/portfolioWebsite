@@ -11,10 +11,12 @@ function App() {
   const [openPage, setOpenPage] = useState<HTMLDivElement>();
   const [pages, setPages] = useState<page[]>();
   useEffect(() => {
-    fetch("https://portfoliorufat.herokuapp.com/api/pages", { mode: "no-cors" })
+    fetch("https://portfoliorufat.herokuapp.com/api/pages")
       .then((res) => res.json())
-      .then((pages) => setPages(pages))
+      .then(setPages)
       .catch((err) => console.log(err));
+    console.log(pages);
+
     openPage?.scrollIntoView();
   }, [openPage]);
   const open: eventHandler = (event: Event) => {
