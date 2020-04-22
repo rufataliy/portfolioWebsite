@@ -17,7 +17,9 @@ export default ({
 }: PortfolioContentProps) => {
   return (
     <React.Fragment>
-      <ImgPortfolio src={"img/" + portfolio.image} />
+      <ImgPortfolio
+        src={"https://portfoliorufat.herokuapp.com/" + portfolio.image}
+      />
       <Label>
         <span>{portfolio.label}</span>
       </Label>

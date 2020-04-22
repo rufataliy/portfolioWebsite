@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import { PortfolioBox, FlexWrapper } from "./styled/styles";
 import PortfolioContent from "./PortfolioContent";
 
-//@ts-ignore
-import prodigyImg from "./img/prodigy.png";
-
 const Portfolio = () => {
   const [state, setState] = useState(false);
   const [openElement, setOpenElement] = useState<HTMLDivElement | undefined>();
   const [portfolios, setPortfolios] = useState([]);
   useEffect(() => {
-    fetch("http://portfolio.rufataliyev.com/api/portfolios")
+    fetch("https://portfoliorufat.herokuapp.com/api/portfolios", {
+      mode: "no-cors",
+    })
       .then((res) => res.json())
       .then((res) => {
         setPortfolios(res);
@@ -41,8 +40,13 @@ const Portfolio = () => {
     <FlexWrapper>
       {portfolios[0] &&
         portfolios?.map((portfolio) => (
-          <PortfolioBox id={portfolio.label} onClick={open}>
+          <PortfolioBox
+            key={portfolio.label}
+            id={portfolio.label}
+            onClick={open}
+          >
             <PortfolioContent
+              key={portfolio.label}
               selectedItem={openElement?.id}
               portfolio={portfolio}
               showContent={state}

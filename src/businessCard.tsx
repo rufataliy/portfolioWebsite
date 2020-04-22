@@ -96,7 +96,10 @@ export default ({ page }: BusinessCardProps) => {
       <ContactBox>
         <ContactBoxCardFront>
           <h1>{page.name}</h1>
-          <img src={`/img/${page.image}`} alt="" />
+          <img
+            src={`https://portfoliorufat.herokuapp.com//${page.image}`}
+            alt=""
+          />
         </ContactBoxCardFront>
         <ContactBoxCardBack>
           <LinkShadowHover dangerouslySetInnerHTML={{ __html: page.text }} />

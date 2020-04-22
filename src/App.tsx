@@ -11,21 +11,13 @@ function App() {
   const [openPage, setOpenPage] = useState<HTMLDivElement>();
   const [pages, setPages] = useState<page[]>();
   useEffect(() => {
-    fetch("http://portfolio.rufataliyev.com/api/pages")
+    fetch("https://portfoliorufat.herokuapp.com/api/pages", { mode: "no-cors" })
       .then((res) => res.json())
       .then((pages) => setPages(pages))
       .catch((err) => console.log(err));
-    window.addEventListener(
-      "devicemotion",
-      ({ rotationRate: { alpha, gamma, beta } }) => {
-        console.log({ alpha, gamma, beta });
-      }
-    );
     openPage?.scrollIntoView();
   }, [openPage]);
   const open: eventHandler = (event: Event) => {
-    console.log("open");
-
     event.stopPropagation();
     event.preventDefault();
     //@ts-ignore
@@ -39,10 +31,7 @@ function App() {
   const close: eventHandler = (e) => {
     e.stopPropagation();
     setState("");
-    console.log(openPage);
-
     openPage?.classList.remove("open");
-    //@ts-ignore
     setOpenPage(undefined);
   };
   const components = (page) => {
@@ -58,9 +47,14 @@ function App() {
       <GlobalStyles />
       {pages &&
         pages.map((page: page) => (
-          <React.Fragment>
+          <React.Fragment key={page.name}>
             {page.name !== "Contact" ? (
-              <Box className="page" id={page.name} onClick={open}>
+              <Box
+                key={page.name}
+                className="page"
+                id={page.name}
+                onClick={open}
+              >
                 {state === page.name ? (
                   <Page close={close}>{components(page)}</Page>
                 ) : (

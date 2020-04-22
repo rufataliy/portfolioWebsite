@@ -8,6 +8,7 @@ const fileupload = require("express-fileupload");
 const initializePassport = require("./passport_config");
 const passport = require("passport");
 const auth = require("./middleware/auth");
+const cors = require("cors");
 mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -28,7 +29,12 @@ app.use(
         secret: process.env.SESSION_SECRET,
     })
 );
-
+app.use(
+    cors({
+        origin: true,
+        credentials: true,
+    })
+);
 initializePassport(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

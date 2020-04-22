@@ -8,7 +8,10 @@ const About = ({ page }: AboutProps) => {
   return (
     <Page>
       <ImgBox>
-        <Img src={`/img/${page.image}`} alt="" />
+        <Img
+          src={`https://portfoliorufat.herokuapp.com/${page.image}`}
+          alt=""
+        />
       </ImgBox>
       <span dangerouslySetInnerHTML={{ __html: page.text }} />
     </Page>
