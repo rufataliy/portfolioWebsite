@@ -10,7 +10,7 @@ const Portfolio = () => {
   const [openElement, setOpenElement] = useState<HTMLDivElement | undefined>();
   const [portfolios, setPortfolios] = useState([]);
   useEffect(() => {
-    fetch("https://portfolio.rufataliyev.com/api/portfolios")
+    fetch("http://portfolio.rufataliyev.com/api/portfolios")
       .then((res) => res.json())
       .then((res) => {
         setPortfolios(res);
