@@ -97,7 +97,7 @@ export default ({ page }: BusinessCardProps) => {
         <ContactBoxCardFront>
           <h1>{page.name}</h1>
           <img
-            src={`https://portfoliorufat.herokuapp.com//${page.image}`}
+            src={`https://portfoliorufat.herokuapp.com/img/${page.image}`}
             alt=""
           />
         </ContactBoxCardFront>

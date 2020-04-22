@@ -18,7 +18,7 @@ export default ({
   return (
     <React.Fragment>
       <ImgPortfolio
-        src={"https://portfoliorufat.herokuapp.com/" + portfolio.image}
+        src={"https://portfoliorufat.herokuapp.com/img/" + portfolio.image}
       />
       <Label>
         <span>{portfolio.label}</span>
