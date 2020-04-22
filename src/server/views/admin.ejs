@@ -15,6 +15,10 @@
     <a href="/admin/pages/newPage" class="ui secondary button">
       New Page
     </a>
+    <a href="/logout" class="ui secondary button">
+      Logout
+    </a>
+    <h1>Portfolios</h1>
     <div class="ui grid">
         <%if(portfolios){ portfolios.forEach(portfolio=>{%>
             <div class="four wide column">
@@ -35,6 +39,7 @@
             </div>
             <%})}%>
     </div>
+    <h1>Pages</h1>
     <div class="ui grid">
         <%if(pages){ pages.forEach(page=>{%>
             <div class="four wide column">

@@ -5,15 +5,16 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const fileupload = require("express-fileupload");
+const initializePassport = require("./passport_config");
+const passport = require("passport");
+const auth = require("./middleware/auth");
 mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
 });
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(fileupload());
 
+app.use(fileupload());
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 app.use("/static", express.static(path.join(__dirname, "../../build/static")));
@@ -27,6 +28,13 @@ app.use(
         secret: process.env.SESSION_SECRET,
     })
 );
+
+initializePassport(passport);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get("/", (req, res) => {
     console.log("request to  /");
     res.sendFile("index.html", {
@@ -34,11 +42,27 @@ app.get("/", (req, res) => {
         baseUrl: req.headers.host,
     });
 });
-
-app.use("/admin", require("./routes/admin"));
-app.use("/admin/portfolios", require("./routes/portfolios"));
-app.use("/admin/pages", require("./routes/pages"));
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+app.post(
+    "/login",
+    passport.authenticate("local", {
+        failureRedirect: "/login",
+    }),
+    (req, res) => {
+        console.log("login");
+        res.redirect("/admin");
+    }
+);
+app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+});
+app.use("/admin", auth, require("./routes/admin"));
+app.use("/admin/portfolios", auth, require("./routes/portfolios"));
+app.use("/admin/pages", auth, require("./routes/pages"));
 app.use("/api", require("./routes/api"));
 app.listen(process.env.PORT, () => {
-    console.log("server running");
+    console.log("server running on " + process.env.PORT);
 });

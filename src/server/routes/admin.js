@@ -1,6 +1,7 @@
 const router = new require("express").Router();
 const Portfolio = require("../models/Portfolio");
 const Page = require("../models/Page");
+
 router.get("/", async(req, res) => {
     const portfoliosPromise = Portfolio.find();
     const pagesPromise = Page.find();
@@ -13,6 +14,5 @@ router.get("/", async(req, res) => {
 
     res.render("admin", { portfolios, pages });
 });
-
 
 module.exports = router;
