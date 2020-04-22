@@ -11,7 +11,7 @@ function App() {
   const [openPage, setOpenPage] = useState<HTMLDivElement>();
   const [pages, setPages] = useState<page[]>();
   useEffect(() => {
-    fetch("http://localhost:3000/api/pages")
+    fetch("http://www.rufataliyev.com/api/pages")
       .then((res) => res.json())
       .then((pages) => setPages(pages))
       .catch((err) => console.log(err));
