@@ -19,7 +19,7 @@ app.set("views", __dirname + "/views");
 app.use("/static", express.static(path.join(__dirname, "../../build/static")));
 app.use("/", express.static(path.join(__dirname, "/public")));
 app.use("/admin", express.static(path.join(__dirname, "/public")));
-console.log(process.env.SESSION_SECRET, process.env.DB_CONNECTION);
+
 app.use(
     session({
         resave: false,
@@ -28,6 +28,7 @@ app.use(
     })
 );
 app.get("/", (req, res) => {
+    console.log("request to  /");
     res.sendFile("index.html", {
         root: path.join(__dirname, "../../build"),
         baseUrl: req.headers.host,
