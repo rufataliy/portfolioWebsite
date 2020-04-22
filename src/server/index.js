@@ -39,6 +39,6 @@ app.use("/admin", require("./routes/admin"));
 app.use("/admin/portfolios", require("./routes/portfolios"));
 app.use("/admin/pages", require("./routes/pages"));
 app.use("/api", require("./routes/api"));
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log("server running");
 });
